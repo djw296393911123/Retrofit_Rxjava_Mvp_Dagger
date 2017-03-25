@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.djw.retrofit_rxjava_mvp_dagger.http.FragmentScope;
 import com.djw.retrofit_rxjava_mvp_dagger.moudel.FragmentModule;
+import com.djw.retrofit_rxjava_mvp_dagger.ui.wx.fragment.WXFragment;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.DaypaperFragment;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.HotFragment;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.LongCommentFragment;
@@ -37,6 +38,8 @@ public interface FragmentComponent {
     void inject(ShortCommentFragment shortCommentFragment);
 
     void inject(ZhihuFragment zhihuFragment);
+
+    void inject(WXFragment wxFragment);
 //
 //    void inject(SectionFragment sectionFragment);
 //

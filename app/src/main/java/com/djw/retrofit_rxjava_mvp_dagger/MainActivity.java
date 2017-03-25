@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         fragments.add(new WXFragment());
         fragments.add(new GankFragment());
         pager.setAdapter(new MainViewpager(getSupportFragmentManager(), fragments));
+        pager.setOffscreenPageLimit(fragments.size());
         pager.addOnPageChangeListener(this);
     }
 

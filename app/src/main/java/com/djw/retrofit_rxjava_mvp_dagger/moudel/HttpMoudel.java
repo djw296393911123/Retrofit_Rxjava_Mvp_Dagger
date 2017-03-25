@@ -1,8 +1,10 @@
 package com.djw.retrofit_rxjava_mvp_dagger.moudel;
 
 import com.djw.retrofit_rxjava_mvp_dagger.http.GankUrl;
+import com.djw.retrofit_rxjava_mvp_dagger.http.WxUrl;
 import com.djw.retrofit_rxjava_mvp_dagger.http.ZhihuUrl;
 import com.djw.retrofit_rxjava_mvp_dagger.http.apis.GankApi;
+import com.djw.retrofit_rxjava_mvp_dagger.http.apis.WxApi;
 import com.djw.retrofit_rxjava_mvp_dagger.http.apis.ZhihuApi;
 
 import javax.inject.Singleton;
@@ -49,6 +51,13 @@ public class HttpMoudel {
 
     @Singleton
     @Provides
+    @WxUrl
+    Retrofit provideWxRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, client, WxApi.SERVICE);
+    }
+
+    @Singleton
+    @Provides
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
         return builder.build();
     }
@@ -63,6 +72,12 @@ public class HttpMoudel {
     @Provides
     GankApi provideGankService(@GankUrl Retrofit retrofit) {
         return retrofit.create(GankApi.class);
+    }
+
+    @Singleton
+    @Provides
+    WxApi provideWxService(@WxUrl Retrofit retrofit) {
+        return retrofit.create(WxApi.class);
     }
 
     private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {

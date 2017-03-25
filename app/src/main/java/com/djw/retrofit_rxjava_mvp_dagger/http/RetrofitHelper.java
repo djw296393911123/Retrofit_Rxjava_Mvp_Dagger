@@ -1,7 +1,9 @@
 package com.djw.retrofit_rxjava_mvp_dagger.http;
 
 import com.djw.retrofit_rxjava_mvp_dagger.data.GankHttpResponse;
+import com.djw.retrofit_rxjava_mvp_dagger.data.WXHttpResponse;
 import com.djw.retrofit_rxjava_mvp_dagger.data.gank.GankListItemData;
+import com.djw.retrofit_rxjava_mvp_dagger.data.wx.WxData;
 import com.djw.retrofit_rxjava_mvp_dagger.data.zhihu.DaypaperBeforeData;
 import com.djw.retrofit_rxjava_mvp_dagger.data.zhihu.DaypaperData;
 import com.djw.retrofit_rxjava_mvp_dagger.data.zhihu.DaypaperHotData;
@@ -14,6 +16,7 @@ import com.djw.retrofit_rxjava_mvp_dagger.data.zhihu.DaypaperShortCommentData;
 import com.djw.retrofit_rxjava_mvp_dagger.data.zhihu.DaypaperThemData;
 import com.djw.retrofit_rxjava_mvp_dagger.data.zhihu.DaypaperThemInfoData;
 import com.djw.retrofit_rxjava_mvp_dagger.http.apis.GankApi;
+import com.djw.retrofit_rxjava_mvp_dagger.http.apis.WxApi;
 import com.djw.retrofit_rxjava_mvp_dagger.http.apis.ZhihuApi;
 
 import java.util.List;
@@ -30,9 +33,12 @@ public class RetrofitHelper {
 
     private GankApi gankApi;
 
-    public RetrofitHelper(ZhihuApi zhihuApi, GankApi gankApi) {
+    private WxApi wxApi;
+
+    public RetrofitHelper(ZhihuApi zhihuApi, GankApi gankApi, WxApi wxApi) {
         this.zhihuApi = zhihuApi;
         this.gankApi = gankApi;
+        this.wxApi = wxApi;
     }
 
     public Observable<DaypaperData> getDaypaperList() {
@@ -81,6 +87,14 @@ public class RetrofitHelper {
 
     public Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getRadomMeizi(String num) {
         return gankApi.getRadomMeizi(num);
+    }
+
+    public Observable<WxData> getWxData(String num, String page) {
+        return wxApi.getWx("1f4051e5e61866d7ead573e2a39d857c", num, page);
+    }
+
+    public Observable<WxData> getSearchWxData(String num, String page, String keyWords) {
+        return wxApi.getSearchWx("1f4051e5e61866d7ead573e2a39d857c", num, page, keyWords);
     }
 
 }

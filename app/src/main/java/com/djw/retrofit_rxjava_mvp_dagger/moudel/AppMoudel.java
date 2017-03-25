@@ -3,6 +3,7 @@ package com.djw.retrofit_rxjava_mvp_dagger.moudel;
 import com.djw.retrofit_rxjava_mvp_dagger.base.BaseApplication;
 import com.djw.retrofit_rxjava_mvp_dagger.http.RetrofitHelper;
 import com.djw.retrofit_rxjava_mvp_dagger.http.apis.GankApi;
+import com.djw.retrofit_rxjava_mvp_dagger.http.apis.WxApi;
 import com.djw.retrofit_rxjava_mvp_dagger.http.apis.ZhihuApi;
 
 import javax.inject.Singleton;
@@ -31,8 +32,8 @@ public class AppMoudel {
 
     @Provides
     @Singleton
-    RetrofitHelper provideRetrofitHelper(ZhihuApi zhihuApiService, GankApi gankApi) {
-        return new RetrofitHelper(zhihuApiService, gankApi);
+    RetrofitHelper provideRetrofitHelper(ZhihuApi zhihuApiService, GankApi gankApi, WxApi wxApi) {
+        return new RetrofitHelper(zhihuApiService, gankApi, wxApi);
     }
 
 }

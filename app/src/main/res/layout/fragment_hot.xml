@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.HotFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_hot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
