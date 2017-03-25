@@ -1,0 +1,65 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.ZhihuFragment">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--android:id="@+id/collapsing_toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--app:contentScrim="?attr/colorAccent"-->
+            <!--app:expandedTitleMarginEnd="64dp"-->
+            <!--app:expandedTitleMarginStart="48dp"-->
+            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tl_base"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_toolbar_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="35px" />
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tl_zhihu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@color/colorAccent"
+                app:tabIndicatorColor="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/white" />
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_zhihu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</android.support.design.widget.CoordinatorLayout>

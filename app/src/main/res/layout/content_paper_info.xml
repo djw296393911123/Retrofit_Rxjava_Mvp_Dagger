@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/nsv_web"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity.PaperInfoActivity"
+    tools:showIn="@layout/activity_paper_info">
+
+    <WebView
+        android:id="@+id/wv_zhihu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</android.support.v4.widget.NestedScrollView>
