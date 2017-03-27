@@ -15,11 +15,11 @@ public interface WxContracts {
 
     interface View extends BaseView {
 
-        void showListContent(WxData list);
+        void showListContent(List<WxData.NewslistBean> list);
 
-        void showSearchData(WxData list);
+        void showSearchData(List<WxData.NewslistBean> list);
 
-        void showMoreContent(WxData wxData);
+        void showMoreContent(List<WxData.NewslistBean> wxData);
 
     }
 

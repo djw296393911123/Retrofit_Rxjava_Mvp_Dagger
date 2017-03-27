@@ -34,11 +34,11 @@ public class WxPresenter extends RxPresenter<WxContracts.View> implements WxCont
     @Override
     public void getListContent() {
         Subscription subscribe = helper.getWxData("20", "1")
-//                .compose(RxUtil.<WXHttpResponse<List<WxData>>>rxSchedulerHelper())
-                .compose(RxUtil.<WxData>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<WxData>(mView) {
+                .compose(RxUtil.<WXHttpResponse<List<WxData.NewslistBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<WxData.NewslistBean>>handleWXResult())
+                .subscribe(new CommonSubscriber<List<WxData.NewslistBean>>(mView) {
                     @Override
-                    public void onNext(WxData list) {
+                    public void onNext(List<WxData.NewslistBean> list) {
                         mView.showListContent(list);
                     }
                 });
@@ -48,12 +48,12 @@ public class WxPresenter extends RxPresenter<WxContracts.View> implements WxCont
     @Override
     public void getSearchData(String page, String word) {
         Subscription subscribe = helper.getSearchWxData("20", page, word)
-//                .compose(RxUtil.<WXHttpResponse<List<WxData>>>rxSchedulerHelper())
-                .compose(RxUtil.<WxData>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<WxData>(mView) {
+                .compose(RxUtil.<WXHttpResponse<List<WxData.NewslistBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<WxData.NewslistBean>>handleWXResult())
+                .subscribe(new CommonSubscriber<List<WxData.NewslistBean>>(mView) {
                     @Override
-                    public void onNext(WxData list) {
-                        mView.showSearchData(list);
+                    public void onNext(List<WxData.NewslistBean> list) {
+                        mView.showListContent(list);
                     }
                 });
         addSubscrebe(subscribe);
@@ -62,12 +62,12 @@ public class WxPresenter extends RxPresenter<WxContracts.View> implements WxCont
     @Override
     public void getMoreContent(String page) {
         Subscription subscribe = helper.getWxData("20", page)
-//                .compose(RxUtil.<WXHttpResponse<List<WxData>>>rxSchedulerHelper())
-                .compose(RxUtil.<WxData>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<WxData>(mView) {
+                .compose(RxUtil.<WXHttpResponse<List<WxData.NewslistBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<WxData.NewslistBean>>handleWXResult())
+                .subscribe(new CommonSubscriber<List<WxData.NewslistBean>>(mView) {
                     @Override
-                    public void onNext(WxData list) {
-                        mView.showMoreContent(list);
+                    public void onNext(List<WxData.NewslistBean> list) {
+                        mView.showListContent(list);
                     }
                 });
         addSubscrebe(subscribe);

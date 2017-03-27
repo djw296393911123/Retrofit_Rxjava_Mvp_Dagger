@@ -10,7 +10,7 @@ public class WXHttpResponse<T> {
 
     private String msg;
 
-    private T newsList;
+    private T newslist;
 
     public int getCode() {
         return code;
@@ -28,11 +28,11 @@ public class WXHttpResponse<T> {
         this.msg = msg;
     }
 
-    public T getNewsList() {
-        return newsList;
+    public T getNewslist() {
+        return newslist;
     }
 
-    public void setNewsList(T newsList) {
-        this.newsList = newsList;
+    public void setNewslist(T newslist) {
+        this.newslist = newslist;
     }
 }

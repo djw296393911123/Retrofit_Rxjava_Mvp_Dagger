@@ -1,7 +1,5 @@
 package com.djw.retrofit_rxjava_mvp_dagger.data.gank;
 
-import com.djw.retrofit_rxjava_mvp_dagger.data.wx.WxBaseData;
-
 import java.util.List;
 
 /**
@@ -33,7 +31,7 @@ public class GankListItemData {
         this.results = results;
     }
 
-    public static class ResultsBean extends WxBaseData {
+    public static class ResultsBean {
         /**
          * _id : 58c7a38e421aa90f03345176
          * createdAt : 2017-03-14T16:02:22.511Z
@@ -57,20 +55,6 @@ public class GankListItemData {
         private boolean used;
         private String who;
         private List<String> images;
-
-        public ResultsBean(String _id, String createdAt, String desc, String publishedAt, String source, String type1, String url, boolean used, String who, List<String> images) {
-            super(WxBaseData.BANNER);
-            this._id = _id;
-            this.createdAt = createdAt;
-            this.desc = desc;
-            this.publishedAt = publishedAt;
-            this.source = source;
-            this.type = type1;
-            this.url = url;
-            this.used = used;
-            this.who = who;
-            this.images = images;
-        }
 
         public String get_id() {
             return _id;

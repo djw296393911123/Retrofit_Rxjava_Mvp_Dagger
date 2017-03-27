@@ -18,9 +18,9 @@ public interface WxApi {
     String SERVICE = "http://api.tianapi.com/";
 
     @GET("wxnew/")
-    Observable<WxData> getWx(@Query("key") String key, @Query("num") String num, @Query("page") String page);
+    Observable<WXHttpResponse<List<WxData.NewslistBean>>> getWx(@Query("key") String key, @Query("num") String num, @Query("page") String page);
 
     @GET("wxnew/")
-    Observable<WxData> getSearchWx(@Query("key") String key, @Query("num") String num, @Query("page") String page, @Query("word") String wrod);
+    Observable<WXHttpResponse<List<WxData.NewslistBean>>> getSearchWx(@Query("key") String key, @Query("num") String num, @Query("page") String page, @Query("word") String wrod);
 
 }

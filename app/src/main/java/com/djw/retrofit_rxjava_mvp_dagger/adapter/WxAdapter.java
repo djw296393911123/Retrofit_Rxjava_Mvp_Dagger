@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.djw.retrofit_rxjava_mvp_dagger.R;
 import com.djw.retrofit_rxjava_mvp_dagger.data.wx.WxData;
 import com.djw.retrofit_rxjava_mvp_dagger.data.zhihu.DaypaperSectionInfoData;
+import com.djw.retrofit_rxjava_mvp_dagger.ui.wx.activity.WebviewActivity;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity.PaperInfoActivity;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity.SectionActivity;
 import com.zhy.autolayout.utils.AutoUtils;
@@ -57,7 +58,7 @@ public class WxAdapter extends RecyclerView.Adapter<WxAdapter.WxHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                context.startActivity(new Intent(context, GankActivity.class).putExtra("url", list.get(position).getUrl()));
+                context.startActivity(new Intent(context, WebviewActivity.class).putExtra("url", list.get(position).getUrl()));
             }
         });
     }

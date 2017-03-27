@@ -44,11 +44,9 @@ public abstract class CommonSubscriber<T> extends Subscriber<T> {
         if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
             mView.showError(mErrorMsg);
         } else if (e instanceof ApiException) {
-            mView.showError(e.toString());
+            mView.showError(e.getMessage());
         } else if (e instanceof HttpException) {
             mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-        } else if (e instanceof NullPointerException) {
-            mView.showError("未搜索到内容");
         } else {
             mView.showError("未知错误ヽ(≧Д≦)ノ");
         }

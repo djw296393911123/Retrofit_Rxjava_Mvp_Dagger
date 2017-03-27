@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import com.djw.retrofit_rxjava_mvp_dagger.ui.wx.contracts.WxContracts;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.wx.presenter.WxPresenter;
 import com.djw.retrofit_rxjava_mvp_dagger.util.RecyclerUtils;
 import com.djw.retrofit_rxjava_mvp_dagger.util.SearchPopWindows;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -124,20 +127,21 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
     }
 
     @Override
-    public void showListContent(WxData list) {
+    public void showListContent(List<WxData.NewslistBean> list) {
         keyword = "";
-        adapter.notifyListChange(list.getNewslist(), false);
+        adapter.notifyListChange(list, false);
     }
 
     @Override
-    public void showSearchData(WxData list) {
-        adapter.notifyListChange(list.getNewslist(), false);
+    public void showSearchData(List<WxData.NewslistBean> list) {
+        Log.i("showSearchData", list.toString());
+        adapter.notifyListChange(list, false);
     }
 
     @Override
-    public void showMoreContent(WxData wxData) {
+    public void showMoreContent(List<WxData.NewslistBean> wxData) {
         keyword = "";
-        adapter.notifyListChange(wxData.getNewslist(), true);
+        adapter.notifyListChange(wxData, true);
     }
 
     @Override

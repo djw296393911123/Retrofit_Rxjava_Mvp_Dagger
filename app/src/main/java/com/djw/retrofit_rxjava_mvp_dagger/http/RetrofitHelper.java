@@ -105,11 +105,11 @@ public class RetrofitHelper {
         return gankApi.getMeizi(page);
     }
 
-    public Observable<WxData> getWxData(String num, String page) {
+    public Observable<WXHttpResponse<List<WxData.NewslistBean>>> getWxData(String num, String page) {
         return wxApi.getWx("1f4051e5e61866d7ead573e2a39d857c", num, page);
     }
 
-    public Observable<WxData> getSearchWxData(String num, String page, String keyWords) {
+    public Observable<WXHttpResponse<List<WxData.NewslistBean>>> getSearchWxData(String num, String page, String keyWords) {
         return wxApi.getSearchWx("1f4051e5e61866d7ead573e2a39d857c", num, page, keyWords);
     }
 
