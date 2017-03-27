@@ -27,7 +27,8 @@
                 <ImageView
                     android:id="@+id/iv_paper_img"
                     android:layout_width="180px"
-                    android:layout_height="180px" />
+                    android:layout_height="180px"
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/tv_paper_title"

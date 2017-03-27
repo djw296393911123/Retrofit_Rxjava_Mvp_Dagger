@@ -1,9 +1,11 @@
 package com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.djw.retrofit_rxjava_mvp_dagger.R;
@@ -25,7 +27,9 @@ public class ThemInfoActivity extends BaseActivity<ThemInfoPresenter> implements
 
     @Override
     public void initView() {
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tl_them);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitle(getIntent().getExtras().getString("title"));
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_them_info);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ThemInfoAdapter(this);

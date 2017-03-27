@@ -66,7 +66,7 @@
 
         "Component elevations.\n\n"
 
-        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "The resting elevation for a component sort is consistent across apps (e.g., FAB elevation "
         "does not vary from 6dp in one app to 16dp in another app).\n"
         "Components may have different resting elevations across platforms, depending on the depth "
         "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"

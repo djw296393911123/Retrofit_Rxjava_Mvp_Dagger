@@ -58,6 +58,7 @@ public class ThemAdapter extends RecyclerView.Adapter<ThemAdapter.ThemHolder> {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", list.get(position).getId());
+                bundle.putString("title", list.get(position).getName());
                 ((MainActivity) context).startActivity(ThemInfoActivity.class, bundle);
             }
         });

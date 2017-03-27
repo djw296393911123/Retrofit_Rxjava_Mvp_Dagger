@@ -3,6 +3,7 @@ package com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,11 +22,12 @@ import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.presenter.HotPresenter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HotFragment extends BaseFragment<HotPresenter> implements HotContracts.View {
+public class HotFragment extends BaseFragment<HotPresenter> implements HotContracts.View, SwipeRefreshLayout.OnRefreshListener {
 
     private HotAdapter adapter;
 
     private boolean isSuccess = false;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void lazyLoad() {
@@ -37,6 +39,9 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     @Override
     protected void initView(View view) {
         isSuccess = true;
+        swipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.srl_hot));
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_hot);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -79,16 +84,21 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
 
     @Override
     public void showProgress() {
-        ((MainActivity) getActivity()).showProgress();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void dismissProgress() {
-        ((MainActivity) getActivity()).dismissProgress();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showContentList(DaypaperHotData daypaperHotData) {
         adapter.notifyListChange(daypaperHotData.getRecent());
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getContentList();
     }
 }

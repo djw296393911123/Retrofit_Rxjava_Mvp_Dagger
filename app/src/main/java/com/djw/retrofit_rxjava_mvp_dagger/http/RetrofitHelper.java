@@ -89,6 +89,22 @@ public class RetrofitHelper {
         return gankApi.getRadomMeizi(num);
     }
 
+    public Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getAndroid(String page) {
+        return gankApi.getAndroid(page);
+    }
+
+    public Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getIOS(String page) {
+        return gankApi.getIos(page);
+    }
+
+    public Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getAll(String page) {
+        return gankApi.getAll(page);
+    }
+
+    public Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getMeizi(String page) {
+        return gankApi.getMeizi(page);
+    }
+
     public Observable<WxData> getWxData(String num, String page) {
         return wxApi.getWx("1f4051e5e61866d7ead573e2a39d857c", num, page);
     }

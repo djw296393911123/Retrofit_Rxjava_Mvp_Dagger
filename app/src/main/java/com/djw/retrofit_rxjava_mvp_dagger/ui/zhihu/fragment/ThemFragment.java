@@ -2,6 +2,7 @@ package com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment;
 
 
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,11 +21,12 @@ import com.djw.retrofit_rxjava_mvp_dagger.util.RecyclerUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ThemFragment extends BaseFragment<ThemPresenter> implements ThemComtract.View {
+public class ThemFragment extends BaseFragment<ThemPresenter> implements ThemComtract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private ThemAdapter adapter;
 
     private boolean isSuccess = false;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void lazyLoad() {
@@ -36,6 +38,9 @@ public class ThemFragment extends BaseFragment<ThemPresenter> implements ThemCom
     @Override
     protected void initView(View view) {
         isSuccess = true;
+        swipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.srl_them));
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_them);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -78,16 +83,21 @@ public class ThemFragment extends BaseFragment<ThemPresenter> implements ThemCom
 
     @Override
     public void showProgress() {
-        ((MainActivity) getActivity()).showProgress();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void dismissProgress() {
-        ((MainActivity) getActivity()).dismissProgress();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showThemData(DaypaperThemData daypaperThemData) {
         adapter.notifyListChange(daypaperThemData.getOthers());
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getThemData();
     }
 }

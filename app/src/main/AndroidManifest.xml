@@ -33,8 +33,11 @@
         <activity
             android:name=".ui.zhihu.activity.CommentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.zhihu.activity.ThemInfoActivity" />
-        <activity android:name=".ui.zhihu.activity.SectionActivity"></activity>
+        <activity
+            android:name=".ui.zhihu.activity.ThemInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.zhihu.activity.SectionActivity" />
+        <activity android:name=".ui.wx.activity.WebviewActivity" />
     </application>
 
 </manifest>

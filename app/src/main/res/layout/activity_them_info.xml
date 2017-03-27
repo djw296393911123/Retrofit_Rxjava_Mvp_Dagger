@@ -3,7 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity.ThemInfoActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tl_them"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_them_info"

@@ -4,6 +4,10 @@ import android.app.Activity;
 
 import com.djw.retrofit_rxjava_mvp_dagger.http.FragmentScope;
 import com.djw.retrofit_rxjava_mvp_dagger.moudel.FragmentModule;
+import com.djw.retrofit_rxjava_mvp_dagger.ui.gank.fragment.AllFragment;
+import com.djw.retrofit_rxjava_mvp_dagger.ui.gank.fragment.AndroidFragment;
+import com.djw.retrofit_rxjava_mvp_dagger.ui.gank.fragment.IOSFragment;
+import com.djw.retrofit_rxjava_mvp_dagger.ui.gank.fragment.MeiziFragment;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.wx.fragment.WXFragment;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.DaypaperFragment;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.HotFragment;
@@ -40,15 +44,15 @@ public interface FragmentComponent {
     void inject(ZhihuFragment zhihuFragment);
 
     void inject(WXFragment wxFragment);
-//
-//    void inject(SectionFragment sectionFragment);
-//
-//    void inject(HotFragment hotFragment);
-//
-//    void inject(CommentFragment longCommentFragment);
-//
-//    void inject(TechFragment techFragment);
-//
+
+    void inject(AndroidFragment androidFragment);
+
+    void inject(IOSFragment iosFragment);
+
+    void inject(AllFragment allFragment);
+
+    void inject(MeiziFragment meiziFragment);
+
 //    void inject(GirlFragment girlFragment);
 //
 //    void inject(LikeFragment likeFragment);

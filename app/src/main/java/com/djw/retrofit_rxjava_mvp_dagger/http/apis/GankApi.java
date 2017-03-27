@@ -19,4 +19,17 @@ public interface GankApi {
 
     @GET("random/data/福利/{num}")
     Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getRadomMeizi(@Path("num") String num);
+
+    @GET("data/Android/20/{page}")
+    Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getAndroid(@Path("page") String page);
+
+    @GET("data/all/20/{page}")
+    Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getAll(@Path("page") String page);
+
+    @GET("data/福利/20/{page}")
+    Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getMeizi(@Path("page") String page);
+
+    @GET("data/iOS/20/{page}")
+    Observable<GankHttpResponse<List<GankListItemData.ResultsBean>>> getIos(@Path("page") String page);
+
 }

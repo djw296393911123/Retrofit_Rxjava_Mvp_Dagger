@@ -2,6 +2,7 @@ package com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment;
 
 
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -21,13 +22,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DaypaperFragment extends BaseFragment<PaperPresenter> implements PaperContracts.View {
+public class DaypaperFragment extends BaseFragment<PaperPresenter> implements PaperContracts.View, SwipeRefreshLayout.OnRefreshListener {
 
     private DaypaperAdapter adapter;
     private boolean isLoading = false;
     private int index = 1;
     private RecyclerView recyclerView;
     private boolean isSuccess = false;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void lazyLoad() {
@@ -39,6 +41,9 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
     @Override
     protected void initView(View view) {
         isSuccess = true;
+        swipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.srl_paper));
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_daypaper);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -91,18 +96,17 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
 
     @Override
     public void showProgress() {
-        ((MainActivity) getActivity()).showProgress();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void dismissProgress() {
-        ((MainActivity) getActivity()).dismissProgress();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 
     @Override
     public void showPaperData(List<PaperBaseData> daypaperData) {
-        recyclerView.smoothScrollToPosition(0);
         adapter.notifyListChange(daypaperData, false);
     }
 
@@ -110,5 +114,11 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
     public void showBeforeData(List<PaperBaseData> daypaperBeforeData) {
         isLoading = false;
         adapter.notifyListChange(daypaperBeforeData, true);
+    }
+
+    @Override
+    public void onRefresh() {
+        index = 1;
+        mPresenter.getPaperData();
     }
 }

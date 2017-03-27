@@ -22,7 +22,6 @@ import java.util.List;
 
 /**
  * Created by JasonDong on 2017/3/25.
- *
  */
 
 public class ThemInfoAdapter extends RecyclerView.Adapter<ThemInfoAdapter.TheminfoHolder> {
@@ -53,7 +52,7 @@ public class ThemInfoAdapter extends RecyclerView.Adapter<ThemInfoAdapter.Themin
         List<String> images = list.get(position).getImages();
         if (images != null)
             Glide.with(context).load(images.get(0)).asBitmap().into(holder.head);
-        else holder.head.setImageResource(R.mipmap.ic_launcher);
+        else holder.head.setImageResource(R.mipmap.img_default_meizi);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

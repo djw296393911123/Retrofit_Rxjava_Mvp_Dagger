@@ -42,7 +42,7 @@ public class WxData {
         this.newslist = newslist;
     }
 
-    public static class NewslistBean {
+    public static class NewslistBean extends WxBaseData{
         /**
          * ctime : 2017-03-10
          * title : 闲置旧U盘的妙用！新技能get√！！！
@@ -56,6 +56,19 @@ public class WxData {
         private String description;
         private String picUrl;
         private String url;
+
+        public NewslistBean() {
+            super(WxBaseData.NORMAL);
+        }
+
+        public NewslistBean(String ctime, String title, String description, String picUrl, String url) {
+            super(WxBaseData.NORMAL);
+            this.ctime = ctime;
+            this.title = title;
+            this.description = description;
+            this.picUrl = picUrl;
+            this.url = url;
+        }
 
         public String getCtime() {
             return ctime;
@@ -96,5 +109,25 @@ public class WxData {
         public void setUrl(String url) {
             this.url = url;
         }
+
+        @Override
+        public String toString() {
+            return "NewslistBean{" +
+                    "ctime='" + ctime + '\'' +
+                    ", title='" + title + '\'' +
+                    ", description='" + description + '\'' +
+                    ", picUrl='" + picUrl + '\'' +
+                    ", url='" + url + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "WxData{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", newslist=" + newslist +
+                '}';
     }
 }

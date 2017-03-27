@@ -3,6 +3,7 @@ package com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,11 +23,12 @@ import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.presenter.SectionPresenter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SectionFragment extends BaseFragment<SectionPresenter> implements SectionContracts.View {
+public class SectionFragment extends BaseFragment<SectionPresenter> implements SectionContracts.View, SwipeRefreshLayout.OnRefreshListener {
 
     private SectionAdapter adapter;
 
     private boolean isSuccess = false;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void lazyLoad() {
@@ -38,6 +40,9 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
     @Override
     protected void initView(View view) {
         isSuccess = true;
+        swipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.srl_section));
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_section);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -80,16 +85,21 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
 
     @Override
     public void showProgress() {
-        ((MainActivity) getActivity()).showProgress();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void dismissProgress() {
-        ((MainActivity) getActivity()).dismissProgress();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showSectionList(DaypaperSectionData daypaperSectionData) {
         adapter.notifyListChange(daypaperSectionData.getData());
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getSectionList();
     }
 }

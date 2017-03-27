@@ -3,11 +3,13 @@ package com.djw.retrofit_rxjava_mvp_dagger;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.djw.retrofit_rxjava_mvp_dagger.adapter.MainViewpager;
-import com.djw.retrofit_rxjava_mvp_dagger.base.BaseActivity;
+import com.djw.retrofit_rxjava_mvp_dagger.base.SimpleActivity;
 import com.djw.retrofit_rxjava_mvp_dagger.interfacts.OnShowOrHideBarListener;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.gank.fragment.GankFragment;
 import com.djw.retrofit_rxjava_mvp_dagger.ui.wx.fragment.WXFragment;
@@ -16,11 +18,14 @@ import com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.ZhihuFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener, ViewPager.OnPageChangeListener, OnShowOrHideBarListener {
+public class MainActivity extends SimpleActivity implements BottomNavigationBar.OnTabSelectedListener, ViewPager.OnPageChangeListener, OnShowOrHideBarListener {
 
     private BottomNavigationBar bar;
     private ViewPager pager;
     private ZhihuFragment zhihuFragment;
+    private WXFragment wxFragment;
+    private GankFragment gankFragment;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +55,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         List<Fragment> fragments = new ArrayList<>();
         zhihuFragment = new ZhihuFragment();
         fragments.add(zhihuFragment);
-        fragments.add(new WXFragment());
-        fragments.add(new GankFragment());
+        wxFragment = new WXFragment();
+        fragments.add(wxFragment);
+        gankFragment = new GankFragment();
+        fragments.add(gankFragment);
         pager.setAdapter(new MainViewpager(getSupportFragmentManager(), fragments));
         pager.setOffscreenPageLimit(fragments.size());
         pager.addOnPageChangeListener(this);
-    }
-
-    @Override
-    public void inject() {
-
     }
 
     @Override
@@ -76,14 +78,21 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     public void onTabReselected(int position) {
         switch (position) {
             case 0:
-                zhihuFragment.refreshData(position);
+                zhihuFragment.refreshData();
                 break;
+            case 1:
+                wxFragment.mPresenter.getListContent();
+                break;
+            case 2:
+                gankFragment.refreshData();
+                break;
+
         }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        isShowHide(false);
     }
 
     @Override
@@ -105,7 +114,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     }
 
     @Override
-    public void showError(String msg) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(this, "再次点击退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

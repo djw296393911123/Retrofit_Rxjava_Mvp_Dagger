@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.djw.retrofit_rxjava_mvp_dagger.MainActivity;
 import com.djw.retrofit_rxjava_mvp_dagger.R;
 import com.djw.retrofit_rxjava_mvp_dagger.adapter.ZhihuViewpager;
 import com.djw.retrofit_rxjava_mvp_dagger.base.BaseFragment;
@@ -25,13 +26,15 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ZhihuFragment extends BaseFragment<ZhihuPresenter> implements ZhihuContracts.View {
+public class ZhihuFragment extends BaseFragment<ZhihuPresenter> implements ZhihuContracts.View, ViewPager.OnPageChangeListener {
 
     private ViewPager pager;
     private TabLayout tabLayout;
     private DaypaperFragment daypaperFragment;
     private ImageView head;
     private ThemFragment themFragment;
+    private SectionFragment sectionFragment;
+    private HotFragment hotFragment;
 
     @Override
     protected void lazyLoad() {
@@ -55,14 +58,17 @@ public class ZhihuFragment extends BaseFragment<ZhihuPresenter> implements Zhihu
         fragments.add(daypaperFragment);
         themFragment = new ThemFragment();
         fragments.add(themFragment);
-        fragments.add(new SectionFragment());
-        fragments.add(new HotFragment());
+        sectionFragment = new SectionFragment();
+        fragments.add(sectionFragment);
+        hotFragment = new HotFragment();
+        fragments.add(hotFragment);
         pager.setAdapter(new ZhihuViewpager(getChildFragmentManager(), fragments));
         tabLayout.setupWithViewPager(pager);
+        pager.addOnPageChangeListener(this);
     }
 
-    public void refreshData(int position) {
-        switch (position) {
+    public void refreshData() {
+        switch (pager.getCurrentItem()) {
             case 0:
                 daypaperFragment.mPresenter.getPaperData();
                 break;
@@ -70,8 +76,10 @@ public class ZhihuFragment extends BaseFragment<ZhihuPresenter> implements Zhihu
                 themFragment.mPresenter.getThemData();
                 break;
             case 2:
+                sectionFragment.mPresenter.getSectionList();
                 break;
             case 3:
+                hotFragment.mPresenter.getContentList();
                 break;
         }
     }
@@ -106,5 +114,20 @@ public class ZhihuFragment extends BaseFragment<ZhihuPresenter> implements Zhihu
     @Override
     public void showRadomMeizi(List<GankListItemData.ResultsBean> list) {
         Glide.with(getActivity()).load(list.get(0).getUrl()).asBitmap().into(head);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        ((MainActivity) getActivity()).isShowHide(false);
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
