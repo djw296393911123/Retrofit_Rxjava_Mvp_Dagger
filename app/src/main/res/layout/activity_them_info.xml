@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity.ThemInfoActivity">
+    tools:context="com.djw.dagger2.ui.zhihu.activity.ThemInfoActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tl_them"

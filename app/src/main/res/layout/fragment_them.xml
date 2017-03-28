@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.fragment.ThemFragment">
+    tools:context="com.djw.dagger2.ui.zhihu.fragment.ThemFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_them"

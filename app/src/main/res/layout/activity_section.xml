@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity.SectionActivity">
+    tools:context="com.djw.dagger2.ui.zhihu.activity.SectionActivity">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_section_info"
         android:layout_width="match_parent"

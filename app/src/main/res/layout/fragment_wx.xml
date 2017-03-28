@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.wx.fragment.WXFragment">
+    tools:context="com.djw.dagger2.ui.wx.fragment.WXFragment">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

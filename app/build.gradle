@@ -49,4 +49,5 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.4'
+    compile 'me.yokeyword:fragmentation:0.10.1'
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/nsv_web"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.djw.retrofit_rxjava_mvp_dagger.ui.zhihu.activity.PaperInfoActivity"
+    tools:context="com.djw.dagger2.ui.zhihu.activity.PaperInfoActivity"
     tools:showIn="@layout/activity_paper_info">
 
     <WebView

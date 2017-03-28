@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.djw.retrofit_rxjava_mvp_dagger.util.ImagePager
+    <com.djw.dagger2.util.ImagePager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
