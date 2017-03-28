@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 /**
  * Created by JasonDong on 2017/3/23.
+ *
  */
 
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
@@ -26,7 +27,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     /**
      * 在这里实现Fragment数据的缓加载.
      *
-     * @param
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

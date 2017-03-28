@@ -46,14 +46,14 @@ public class WxPresenter extends RxPresenter<WxContracts.View> implements WxCont
     }
 
     @Override
-    public void getSearchData(String page, String word) {
-        Subscription subscribe = helper.getSearchWxData("20", page, word)
+    public void getSearchData(String word) {
+        Subscription subscribe = helper.getSearchWxData("20", "1", word)
                 .compose(RxUtil.<WXHttpResponse<List<WxData.NewslistBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<WxData.NewslistBean>>handleWXResult())
                 .subscribe(new CommonSubscriber<List<WxData.NewslistBean>>(mView) {
                     @Override
                     public void onNext(List<WxData.NewslistBean> list) {
-                        mView.showListContent(list);
+                        mView.showSearchData(list);
                     }
                 });
         addSubscrebe(subscribe);
@@ -67,7 +67,21 @@ public class WxPresenter extends RxPresenter<WxContracts.View> implements WxCont
                 .subscribe(new CommonSubscriber<List<WxData.NewslistBean>>(mView) {
                     @Override
                     public void onNext(List<WxData.NewslistBean> list) {
-                        mView.showListContent(list);
+                        mView.showMoreContent(list);
+                    }
+                });
+        addSubscrebe(subscribe);
+    }
+
+    @Override
+    public void getMoreSearchData(String page, String word) {
+        Subscription subscribe = helper.getSearchWxData("20", page, word)
+                .compose(RxUtil.<WXHttpResponse<List<WxData.NewslistBean>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<WxData.NewslistBean>>handleWXResult())
+                .subscribe(new CommonSubscriber<List<WxData.NewslistBean>>(mView) {
+                    @Override
+                    public void onNext(List<WxData.NewslistBean> list) {
+                        mView.showMoreSearchData(list);
                     }
                 });
         addSubscrebe(subscribe);

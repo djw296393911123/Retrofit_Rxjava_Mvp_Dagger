@@ -9,6 +9,7 @@ import com.djw.retrofit_rxjava_mvp_dagger.moudel.HttpMoudel;
 
 /**
  * Created by JasonDong on 2017/3/23.
+ *
  */
 
 public class BaseApplication extends Application {
@@ -18,6 +19,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
     }
 
     public static AppComponent getAppComponent() {

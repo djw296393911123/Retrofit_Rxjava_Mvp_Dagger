@@ -72,7 +72,7 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
                 super.onScrollStateChanged(recyclerView, newState);
                 if (RecyclerUtils.isSlideToBottom(recyclerView) && !isLoading) {
                     if (!keyword.equals(""))
-                        mPresenter.getSearchData(String.valueOf(++page), keyword);
+                        mPresenter.getMoreSearchData(String.valueOf(++page), keyword);
                     else
                         mPresenter.getMoreContent(String.valueOf(++index));
                     isLoading = true;
@@ -145,9 +145,14 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
     }
 
     @Override
+    public void showMoreSearchData(List<WxData.NewslistBean> list) {
+        adapter.notifyListChange(list, true);
+    }
+
+    @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         keyword = v.getText().toString().trim();
-        mPresenter.getSearchData("1", keyword);
+        mPresenter.getSearchData(keyword);
         searchPopWindows.dismiss();
         return false;
     }

@@ -21,15 +21,19 @@ public interface WxContracts {
 
         void showMoreContent(List<WxData.NewslistBean> wxData);
 
+        void showMoreSearchData(List<WxData.NewslistBean> list);
+
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void getListContent();
 
-        void getSearchData(String page, String word);
+        void getSearchData(String word);
 
         void getMoreContent(String page);
+
+        void getMoreSearchData(String page, String word);
 
     }
 
