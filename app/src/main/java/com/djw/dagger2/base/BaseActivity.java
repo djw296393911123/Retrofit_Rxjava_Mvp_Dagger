@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.djw.dagger2.component.ActivityComponent;
 import com.djw.dagger2.component.DaggerActivityComponent;
-import com.djw.dagger2.moudel.ActivityModule;
+import com.djw.dagger2.module.ActivityModule;
 import com.github.anzewei.parallaxbacklayout.ParallaxBackActivityHelper;
 import com.github.anzewei.parallaxbacklayout.ParallaxBackLayout;
 import com.zhy.autolayout.AutoLayoutActivity;

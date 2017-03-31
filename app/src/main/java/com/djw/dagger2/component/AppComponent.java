@@ -2,8 +2,8 @@ package com.djw.dagger2.component;
 
 import com.djw.dagger2.base.BaseApplication;
 import com.djw.dagger2.http.RetrofitHelper;
-import com.djw.dagger2.moudel.AppMoudel;
-import com.djw.dagger2.moudel.HttpMoudel;
+import com.djw.dagger2.module.AppMoudel;
+import com.djw.dagger2.module.HttpMoudel;
 
 import javax.inject.Singleton;
 

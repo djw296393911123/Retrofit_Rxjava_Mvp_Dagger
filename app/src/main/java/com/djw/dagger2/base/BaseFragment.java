@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.djw.dagger2.component.DaggerFragmentComponent;
 import com.djw.dagger2.component.FragmentComponent;
-import com.djw.dagger2.moudel.FragmentModule;
+import com.djw.dagger2.module.FragmentModule;
 
 import javax.inject.Inject;
 

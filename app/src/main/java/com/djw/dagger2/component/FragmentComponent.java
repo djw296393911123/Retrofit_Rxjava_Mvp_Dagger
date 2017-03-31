@@ -3,7 +3,7 @@ package com.djw.dagger2.component;
 import android.app.Activity;
 
 import com.djw.dagger2.http.FragmentScope;
-import com.djw.dagger2.moudel.FragmentModule;
+import com.djw.dagger2.module.FragmentModule;
 import com.djw.dagger2.ui.gank.fragment.AllFragment;
 import com.djw.dagger2.ui.gank.fragment.AndroidFragment;
 import com.djw.dagger2.ui.gank.fragment.IOSFragment;

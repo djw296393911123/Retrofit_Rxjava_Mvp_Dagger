@@ -1,4 +1,4 @@
-package com.djw.dagger2.moudel;
+package com.djw.dagger2.module;
 
 import com.djw.dagger2.http.GankUrl;
 import com.djw.dagger2.http.WxUrl;

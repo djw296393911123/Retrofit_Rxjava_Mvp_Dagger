@@ -1,4 +1,4 @@
-package com.djw.dagger2.moudel;
+package com.djw.dagger2.module;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;

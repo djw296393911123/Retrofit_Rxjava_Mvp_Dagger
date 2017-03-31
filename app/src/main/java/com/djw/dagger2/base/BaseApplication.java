@@ -4,8 +4,8 @@ import android.app.Application;
 //
 import com.djw.dagger2.component.AppComponent;
 import com.djw.dagger2.component.DaggerAppComponent;
-import com.djw.dagger2.moudel.AppMoudel;
-import com.djw.dagger2.moudel.HttpMoudel;
+import com.djw.dagger2.module.AppMoudel;
+import com.djw.dagger2.module.HttpMoudel;
 
 /**
  * Created by JasonDong on 2017/3/23.

@@ -3,7 +3,7 @@ package com.djw.dagger2.component;
 import android.app.Activity;
 
 import com.djw.dagger2.http.ActivityScope;
-import com.djw.dagger2.moudel.ActivityModule;
+import com.djw.dagger2.module.ActivityModule;
 import com.djw.dagger2.ui.zhihu.activity.PaperInfoActivity;
 import com.djw.dagger2.ui.zhihu.activity.SectionActivity;
 import com.djw.dagger2.ui.zhihu.activity.ThemInfoActivity;
