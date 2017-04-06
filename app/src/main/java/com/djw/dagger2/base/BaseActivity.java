@@ -110,7 +110,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AutoLayoutAc
     protected void onDestroy() {
         super.onDestroy();
         mHelper.onActivityDestroy();
-        mPresenter.detachView();
+        if (mPresenter != null) mPresenter.detachView();
     }
 
     public ParallaxBackLayout getBackLayout() {

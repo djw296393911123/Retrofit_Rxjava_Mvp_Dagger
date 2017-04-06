@@ -89,14 +89,28 @@ public class HttpMoudel {
             @Override
             public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request request = chain.request();
-                CacheControl cacheControl = new CacheControl.Builder().maxAge(30 * 60 * 60 * 24, TimeUnit.SECONDS).maxStale(60 * 3, TimeUnit.SECONDS).build();
+                if (!SystemUtil.isNetworkConnected()) {
+                    request = request.newBuilder()
+                            .cacheControl(CacheControl.FORCE_CACHE)
+                            .build();
+                }
                 Response response = chain.proceed(request);
-                Log.i("cacheControl", cacheControl.toString());
-                return response.newBuilder()
-                        .removeHeader("Pragma")
-                        .removeHeader("Cache-Control")
-                        .header("Cache-Control", cacheControl.toString())
-                        .build();
+                if (SystemUtil.isNetworkConnected()) {
+                    int maxAge = 0;
+                    // 有网络时, 不缓存, 最大保存时长为0
+                    response.newBuilder()
+                            .header("Cache-Control", "public, max-age=" + maxAge)
+                            .removeHeader("Pragma")
+                            .build();
+                } else {
+                    // 无网络时，设置超时为4周
+                    int maxStale = 60 * 60 * 24 * 28;
+                    response.newBuilder()
+                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                            .removeHeader("Pragma")
+                            .build();
+                }
+                return response;
             }
         };
     }

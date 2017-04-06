@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,18 +38,9 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private Context context;
 
-    private List<String> titles;
-
-    private List<String> urls;
-
-    private List<String> ids;
-
     public DaypaperAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
-        titles = new ArrayList<>();
-        urls = new ArrayList<>();
-        ids = new ArrayList<>();
     }
 
     public void notifyListChange(List<PaperBaseData> list, boolean isLoadMore) {
