@@ -22,6 +22,10 @@ public class BaseApplication extends Application {
         instance = this;
     }
 
+    public static synchronized BaseApplication getInstance() {
+        return instance;
+    }
+
     public static AppComponent getAppComponent() {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()

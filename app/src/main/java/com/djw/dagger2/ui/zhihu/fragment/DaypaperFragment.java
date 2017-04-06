@@ -46,16 +46,7 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_daypaper);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (RecyclerUtils.isSlideToBottom(recyclerView) && !isLoading) {
-                    mPresenter.getBeforeData(String.valueOf(RecyclerUtils.getBeforeDate(1000 * 24 * 60 * 60 * index++)));
-                    isLoading = true;
-                }
-            }
-
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -64,6 +55,14 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
                         ((MainActivity) getActivity()).isShowHide(false);
                     else
                         ((MainActivity) getActivity()).isShowHide(true);
+                }
+                int lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+                if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
+                    if (!isLoading) {
+                        mPresenter.getBeforeData(String.valueOf(RecyclerUtils.getBeforeDate(1000 * 24 * 60 * 60 * index++)));
+                        isLoading = true;
+                    }
                 }
             }
         });

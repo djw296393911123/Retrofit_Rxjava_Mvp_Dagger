@@ -19,7 +19,6 @@ import com.djw.dagger2.base.BaseFragment;
 import com.djw.dagger2.data.wx.WxData;
 import com.djw.dagger2.ui.wx.contracts.WxContracts;
 import com.djw.dagger2.ui.wx.presenter.WxPresenter;
-import com.djw.dagger2.util.RecyclerUtils;
 import com.djw.dagger2.util.SearchPopWindows;
 
 import java.util.List;
@@ -65,19 +64,7 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
         });
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_wx);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (RecyclerUtils.isSlideToBottom(recyclerView) && !isLoading) {
-                    if (!keyword.equals(""))
-                        mPresenter.getMoreSearchData(String.valueOf(++page), keyword);
-                    else
-                        mPresenter.getMoreContent(String.valueOf(++index));
-                    isLoading = true;
-                }
-            }
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -87,6 +74,17 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
                         ((MainActivity) getActivity()).isShowHide(false);
                     else
                         ((MainActivity) getActivity()).isShowHide(true);
+                }
+                int lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+                if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
+                    if (!isLoading) {
+                        if (!keyword.equals(""))
+                            mPresenter.getMoreSearchData(String.valueOf(++page), keyword);
+                        else
+                            mPresenter.getMoreContent(String.valueOf(++index));
+                        isLoading = true;
+                    }
                 }
             }
         });

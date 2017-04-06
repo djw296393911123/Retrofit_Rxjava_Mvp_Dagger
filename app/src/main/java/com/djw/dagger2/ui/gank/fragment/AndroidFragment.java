@@ -18,7 +18,6 @@ import com.djw.dagger2.base.BaseFragment;
 import com.djw.dagger2.data.gank.GankListItemData;
 import com.djw.dagger2.ui.gank.contracts.AndroidContracts;
 import com.djw.dagger2.ui.gank.presenter.AndroidPresenter;
-import com.djw.dagger2.util.RecyclerUtils;
 
 import java.io.File;
 import java.util.List;
@@ -63,16 +62,7 @@ public class AndroidFragment extends BaseFragment<AndroidPresenter> implements A
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (RecyclerUtils.isSlideToBottom(recyclerView) && !isLoading) {
-                    mPresenter.getMoreAndroid(String.valueOf(++index));
-                    isLoading = true;
-                }
-            }
-
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -81,6 +71,15 @@ public class AndroidFragment extends BaseFragment<AndroidPresenter> implements A
                         ((MainActivity) getActivity()).isShowHide(false);
                     else
                         ((MainActivity) getActivity()).isShowHide(true);
+                }
+
+                int lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+                if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
+                    if (!isLoading) {
+                        mPresenter.getMoreAndroid(String.valueOf(++index));
+                        isLoading = true;
+                    }
                 }
             }
         });

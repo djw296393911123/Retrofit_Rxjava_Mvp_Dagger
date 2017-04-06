@@ -41,7 +41,7 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         swipeRefreshLayout.setOnRefreshListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_hot);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);

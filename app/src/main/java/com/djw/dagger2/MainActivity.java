@@ -17,6 +17,11 @@ import com.djw.dagger2.ui.zhihu.fragment.ZhihuFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class MainActivity extends SimpleActivity implements BottomNavigationBar.OnTabSelectedListener, ViewPager.OnPageChangeListener, OnShowOrHideBarListener {
 
@@ -42,7 +47,6 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
 
     @Override
     public void doBusiness() {
-
         bar.setMode(BottomNavigationBar.MODE_FIXED);
         bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bar

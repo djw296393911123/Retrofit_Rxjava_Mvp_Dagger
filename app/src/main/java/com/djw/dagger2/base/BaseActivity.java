@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
+import com.djw.dagger2.R;
 import com.djw.dagger2.component.ActivityComponent;
 import com.djw.dagger2.component.DaggerActivityComponent;
 import com.djw.dagger2.module.ActivityModule;
 import com.github.anzewei.parallaxbacklayout.ParallaxBackActivityHelper;
 import com.github.anzewei.parallaxbacklayout.ParallaxBackLayout;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import javax.inject.Inject;
@@ -32,6 +34,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AutoLayoutAc
         super.setContentView(layoutResID);
         context = this;
         progressDialog = new ProgressDialog(this);
+        DoubleBounce doubleBounce = new DoubleBounce();
+        doubleBounce.setColor(R.color.colorAccent);
+        progressDialog.setIndeterminateDrawable(doubleBounce);
+        progressDialog.setMessage("正在加载...");
         initView();
         doBusiness();
         inject();
@@ -104,6 +110,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AutoLayoutAc
     protected void onDestroy() {
         super.onDestroy();
         mHelper.onActivityDestroy();
+        mPresenter.detachView();
     }
 
     public ParallaxBackLayout getBackLayout() {
