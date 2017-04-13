@@ -26,6 +26,8 @@ public interface PaperContracts {
 
         void getBeforeData(String date);
 
+        void getDouban();
+
     }
 
 }

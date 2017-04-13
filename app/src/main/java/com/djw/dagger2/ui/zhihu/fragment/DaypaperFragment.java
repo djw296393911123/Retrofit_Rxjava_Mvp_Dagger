@@ -106,6 +106,7 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
 
     @Override
     public void showPaperData(List<PaperBaseData> daypaperData) {
+        index = 1;
         adapter.notifyListChange(daypaperData, false);
     }
 

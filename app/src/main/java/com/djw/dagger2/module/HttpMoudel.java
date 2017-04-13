@@ -1,11 +1,11 @@
 package com.djw.dagger2.module;
 
-import android.util.Log;
-
 import com.djw.dagger2.base.BaseApplication;
+import com.djw.dagger2.http.DoubanUrl;
 import com.djw.dagger2.http.GankUrl;
 import com.djw.dagger2.http.WxUrl;
 import com.djw.dagger2.http.ZhihuUrl;
+import com.djw.dagger2.http.apis.DoubanApi;
 import com.djw.dagger2.http.apis.GankApi;
 import com.djw.dagger2.http.apis.WxApi;
 import com.djw.dagger2.http.apis.ZhihuApi;
@@ -13,7 +13,6 @@ import com.djw.dagger2.util.SystemUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
@@ -57,6 +56,13 @@ public class HttpMoudel {
 
     @Singleton
     @Provides
+    @DoubanUrl
+    Retrofit provideDoubanRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, client, DoubanApi.SERVICE);
+    }
+
+    @Singleton
+    @Provides
     @GankUrl
     Retrofit provideGankRetrofit(Retrofit.Builder builder, OkHttpClient client) {
         return createRetrofit(builder, client, GankApi.SERVICE);
@@ -89,28 +95,12 @@ public class HttpMoudel {
             @Override
             public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request request = chain.request();
-                if (!SystemUtil.isNetworkConnected()) {
-                    request = request.newBuilder()
-                            .cacheControl(CacheControl.FORCE_CACHE)
-                            .build();
-                }
                 Response response = chain.proceed(request);
-                if (SystemUtil.isNetworkConnected()) {
-                    int maxAge = 0;
-                    // 有网络时, 不缓存, 最大保存时长为0
-                    response.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + maxAge)
-                            .removeHeader("Pragma")
-                            .build();
-                } else {
-                    // 无网络时，设置超时为4周
-                    int maxStale = 60 * 60 * 24 * 28;
-                    response.newBuilder()
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                            .removeHeader("Pragma")
-                            .build();
-                }
-                return response;
+                return response.newBuilder()
+                        .removeHeader("Pragma")
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "max-age=" + 60 * 60)
+                        .build();
             }
         };
     }
@@ -119,6 +109,12 @@ public class HttpMoudel {
     @Provides
     ZhihuApi provideZhihuService(@ZhihuUrl Retrofit retrofit) {
         return retrofit.create(ZhihuApi.class);
+    }
+
+    @Singleton
+    @Provides
+    DoubanApi provideDoubanService(@DoubanUrl Retrofit retrofit) {
+        return retrofit.create(DoubanApi.class);
     }
 
     @Singleton

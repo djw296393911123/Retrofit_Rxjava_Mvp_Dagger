@@ -1,7 +1,10 @@
 package com.djw.dagger2.ui.zhihu.presenter;
 
+import android.util.Log;
+
 import com.djw.dagger2.base.CommonSubscriber;
 import com.djw.dagger2.base.RxPresenter;
+import com.djw.dagger2.data.douban.DoubanListItem;
 import com.djw.dagger2.util.RxUtil;
 import com.djw.dagger2.data.zhihu.DaypaperBeforeData;
 import com.djw.dagger2.data.zhihu.DaypaperData;
@@ -22,7 +25,6 @@ import rx.Subscription;
 
 /**
  * Created by JasonDong on 2017/3/23.
- *
  */
 
 public class PaperPresenter extends RxPresenter<PaperContracts.View> implements PaperContracts.Presenter {
@@ -83,5 +85,17 @@ public class PaperPresenter extends RxPresenter<PaperContracts.View> implements 
                     }
                 });
         addSubscrebe(subscribe);
+    }
+
+    @Override
+    public void getDouban() {
+        helper.getBookInfo("6548683")
+                .compose(RxUtil.<DoubanListItem>rxSchedulerHelper())
+                .subscribe(new CommonSubscriber<DoubanListItem>(mView) {
+                    @Override
+                    public void onNext(DoubanListItem doubanListItem) {
+                        Log.i("doubanlistitem", doubanListItem.toString());
+                    }
+                });
     }
 }

@@ -2,6 +2,7 @@ package com.djw.dagger2.module;
 
 import com.djw.dagger2.base.BaseApplication;
 import com.djw.dagger2.http.RetrofitHelper;
+import com.djw.dagger2.http.apis.DoubanApi;
 import com.djw.dagger2.http.apis.GankApi;
 import com.djw.dagger2.http.apis.WxApi;
 import com.djw.dagger2.http.apis.ZhihuApi;
@@ -32,8 +33,8 @@ public class AppMoudel {
 
     @Provides
     @Singleton
-    RetrofitHelper provideRetrofitHelper(ZhihuApi zhihuApiService, GankApi gankApi, WxApi wxApi) {
-        return new RetrofitHelper(zhihuApiService, gankApi, wxApi);
+    RetrofitHelper provideRetrofitHelper(ZhihuApi zhihuApiService, GankApi gankApi, WxApi wxApi, DoubanApi doubanApi) {
+        return new RetrofitHelper(zhihuApiService, gankApi, wxApi, doubanApi);
     }
 
 }

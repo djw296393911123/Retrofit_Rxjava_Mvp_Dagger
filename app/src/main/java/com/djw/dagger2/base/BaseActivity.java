@@ -2,6 +2,7 @@ package com.djw.dagger2.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -38,6 +39,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AutoLayoutAc
         doubleBounce.setColor(R.color.colorAccent);
         progressDialog.setIndeterminateDrawable(doubleBounce);
         progressDialog.setMessage("正在加载...");
+//        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                //取消网络请求
+//                if (mPresenter != null) mPresenter.detachView();
+//            }
+//        });
         initView();
         doBusiness();
         inject();
