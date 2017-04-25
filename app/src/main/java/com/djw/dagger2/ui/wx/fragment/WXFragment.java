@@ -17,6 +17,7 @@ import com.djw.dagger2.R;
 import com.djw.dagger2.adapter.WxAdapter;
 import com.djw.dagger2.base.BaseFragment;
 import com.djw.dagger2.data.wx.WxData;
+import com.djw.dagger2.ui.wx.activity.SearchActivity;
 import com.djw.dagger2.ui.wx.contracts.WxContracts;
 import com.djw.dagger2.ui.wx.presenter.WxPresenter;
 import com.djw.dagger2.util.SearchPopWindows;
@@ -58,8 +59,9 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
         view.findViewById(R.id.iv_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchPopWindows = new SearchPopWindows(getActivity(), WXFragment.this);
-                searchPopWindows.showAsDropDown(toolbar, 5, 5);
+                startActivity(SearchActivity.class);
+//                searchPopWindows = new SearchPopWindows(getActivity(), WXFragment.this);
+//                searchPopWindows.showAsDropDown(toolbar, 5, 5);
             }
         });
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_wx);

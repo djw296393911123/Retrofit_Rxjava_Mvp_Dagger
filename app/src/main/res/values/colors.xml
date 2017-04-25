@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3C72C4</color>
     <color name="colorPrimaryDark">#3C72C4</color>
     <color name="colorAccent">#3C72C4</color>
+    <color name="home_toolbar_bg">#e8f8eb</color>
+    <color name="colorAccent2">#503C72C4</color>
     <color name="white">#FFF</color>
     <color name="gary">#eee</color>
     <color name="translation">#00FFFFFF</color>

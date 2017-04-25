@@ -2,18 +2,19 @@ package com.djw.dagger2.ui.zhihu.presenter;
 
 import android.util.Log;
 
+import com.djw.dagger2.R;
 import com.djw.dagger2.base.CommonSubscriber;
 import com.djw.dagger2.base.RxPresenter;
-import com.djw.dagger2.data.douban.DoubanListItem;
-import com.djw.dagger2.util.RxUtil;
 import com.djw.dagger2.data.zhihu.DaypaperBeforeData;
 import com.djw.dagger2.data.zhihu.DaypaperData;
 import com.djw.dagger2.data.zhihu.paper.BannerData;
 import com.djw.dagger2.data.zhihu.paper.ListData;
 import com.djw.dagger2.data.zhihu.paper.PaperBaseData;
+import com.djw.dagger2.data.zhihu.paper.SelectFourData;
 import com.djw.dagger2.data.zhihu.paper.TypeData;
 import com.djw.dagger2.http.RetrofitHelper;
 import com.djw.dagger2.ui.zhihu.contracts.PaperContracts;
+import com.djw.dagger2.util.RxUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,6 +26,7 @@ import rx.Subscription;
 
 /**
  * Created by JasonDong on 2017/3/23.
+ *
  */
 
 public class PaperPresenter extends RxPresenter<PaperContracts.View> implements PaperContracts.Presenter {
@@ -46,6 +48,7 @@ public class PaperPresenter extends RxPresenter<PaperContracts.View> implements 
                         List<DaypaperData.StoriesBean> stories = daypaperData.getStories();
                         List<DaypaperData.TopStoriesBean> top_stories = daypaperData.getTop_stories();
                         List<PaperBaseData> list = new LinkedList<>();
+
                         List<String> urls = new ArrayList<>();
                         List<String> titles = new ArrayList<>();
                         List<String> ids = new ArrayList<>();
@@ -56,6 +59,25 @@ public class PaperPresenter extends RxPresenter<PaperContracts.View> implements 
                             ids.add(String.valueOf(topStoriesBean.getId()));
                         }
                         list.add(new BannerData(titles, urls, ids));
+
+                        List<String> select_titles = new ArrayList<>();
+                        List<Integer> select_urls = new ArrayList<>();
+                        List<Integer> select_ids = new ArrayList<>();
+                        select_titles.add("电影日报");
+                        select_titles.add("财经日报");
+                        select_titles.add("动漫日报");
+                        select_titles.add("体育日报");
+                        select_urls.add(R.mipmap.hot);
+                        select_urls.add(R.mipmap.jingpin);
+                        select_urls.add(R.mipmap.tejia);
+                        select_urls.add(R.mipmap.tuijian);
+                        select_ids.add(3);
+                        select_ids.add(6);
+                        select_ids.add(9);
+                        select_ids.add(8);
+
+                        list.add(new SelectFourData(select_titles, select_urls, select_ids));
+
                         list.add(new TypeData(daypaperData.getDate()));
                         for (int i = 0; i < stories.size(); i++) {
                             DaypaperData.StoriesBean storiesBean = stories.get(i);
@@ -69,6 +91,7 @@ public class PaperPresenter extends RxPresenter<PaperContracts.View> implements 
 
     @Override
     public void getBeforeData(String date) {
+        Log.i("date", date);
         Subscription subscribe = helper.getBeforePaperList(date)
                 .compose(RxUtil.<DaypaperBeforeData>rxSchedulerHelper())
                 .subscribe(new CommonSubscriber<DaypaperBeforeData>(mView) {
@@ -85,17 +108,5 @@ public class PaperPresenter extends RxPresenter<PaperContracts.View> implements 
                     }
                 });
         addSubscrebe(subscribe);
-    }
-
-    @Override
-    public void getDouban() {
-        helper.getBookInfo("6548683")
-                .compose(RxUtil.<DoubanListItem>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<DoubanListItem>(mView) {
-                    @Override
-                    public void onNext(DoubanListItem doubanListItem) {
-                        Log.i("doubanlistitem", doubanListItem.toString());
-                    }
-                });
     }
 }

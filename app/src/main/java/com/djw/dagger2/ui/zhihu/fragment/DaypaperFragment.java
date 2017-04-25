@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.djw.dagger2.MainActivity;
@@ -69,6 +68,7 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
         });
         adapter = new DaypaperAdapter(getActivity());
         recyclerView.setAdapter(adapter);
+
     }
 
     @Override

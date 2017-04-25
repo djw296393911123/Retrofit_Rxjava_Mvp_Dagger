@@ -8,4 +8,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tl_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="35px" />
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10px"
+                android:background="@drawable/ic_share_black_24dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+
 </FrameLayout>

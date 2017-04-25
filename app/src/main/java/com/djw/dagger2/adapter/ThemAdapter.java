@@ -45,12 +45,13 @@ public class ThemAdapter extends RecyclerView.Adapter<ThemAdapter.ThemHolder> {
 
     @Override
     public ThemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ThemHolder(LayoutInflater.from(context).inflate(R.layout.them_item, parent, false));
+        return new ThemHolder(LayoutInflater.from(context).inflate(R.layout.item_them, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ThemHolder holder, final int position) {
-        holder.textView.setText(list.get(position).getName());
+        holder.title.setText(list.get(position).getName());
+        holder.des.setText(list.get(position).getDescription());
         Glide.with(context).load(list.get(position).getThumbnail()).bitmapTransform(new RoundedCornersTransformation(context, 0, 0)).into(holder.imageView);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +72,16 @@ public class ThemAdapter extends RecyclerView.Adapter<ThemAdapter.ThemHolder> {
     class ThemHolder extends RecyclerView.ViewHolder {
 
         private final ImageView imageView;
-        private final TextView textView;
+        private final TextView title;
+        private final TextView des;
         private final FrameLayout layout;
 
         public ThemHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             imageView = ((ImageView) itemView.findViewById(R.id.iv_them));
-            textView = ((TextView) itemView.findViewById(R.id.tv_them));
+            title = ((TextView) itemView.findViewById(R.id.tv_them_title));
+            des = ((TextView) itemView.findViewById(R.id.tv_them_des));
             layout = ((FrameLayout) itemView.findViewById(R.id.fl_them));
         }
     }

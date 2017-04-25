@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,8 +16,10 @@ import com.djw.dagger2.R;
 import com.djw.dagger2.data.zhihu.paper.BannerData;
 import com.djw.dagger2.data.zhihu.paper.ListData;
 import com.djw.dagger2.data.zhihu.paper.PaperBaseData;
+import com.djw.dagger2.data.zhihu.paper.SelectFourData;
 import com.djw.dagger2.data.zhihu.paper.TypeData;
 import com.djw.dagger2.ui.zhihu.activity.PaperInfoActivity;
+import com.djw.dagger2.ui.zhihu.activity.ThemInfoActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerClickListener;
@@ -32,7 +33,7 @@ import java.util.List;
  * Created by JasonDong on 2017/3/24.
  */
 
-public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnBannerClickListener {
+public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnBannerClickListener, View.OnClickListener {
 
     private List<PaperBaseData> list;
 
@@ -58,6 +59,9 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return new TypeHolder(LayoutInflater.from(context).inflate(R.layout.item_paper_type, parent, false));
             case PaperBaseData.LIST_TYPE:
                 return new ListHolder(LayoutInflater.from(context).inflate(R.layout.item_paper_news, parent, false));
+            case PaperBaseData.FOUR_TYPE:
+                return new SelectHolder(LayoutInflater.from(context).inflate(R.layout.item_new_two, parent, false));
+
         }
         return null;
     }
@@ -94,6 +98,26 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 });
                 break;
+            case PaperBaseData.FOUR_TYPE:
+                SelectHolder twoHolder = (SelectHolder) holder;
+                SelectFourData two = (SelectFourData) list.get(position);
+                twoHolder.ivTowOne.setImageResource(two.getUrl().get(0));
+                twoHolder.ivTowOne.setTag(two.getIds().get(0) + "," + two.getTitle().get(0));
+                twoHolder.ivTowOne.setOnClickListener(this);
+                twoHolder.ivTowTwo.setImageResource(two.getUrl().get(1));
+                twoHolder.ivTowTwo.setTag(two.getIds().get(1) + "," + two.getTitle().get(1));
+                twoHolder.ivTowTwo.setOnClickListener(this);
+                twoHolder.ivTowThree.setImageResource(two.getUrl().get(2));
+                twoHolder.ivTowThree.setTag(two.getIds().get(2) + "," + two.getTitle().get(2));
+                twoHolder.ivTowThree.setOnClickListener(this);
+                twoHolder.ivTowFour.setImageResource(two.getUrl().get(3));
+                twoHolder.ivTowFour.setTag(two.getIds().get(3) + "," + two.getTitle().get(3));
+                twoHolder.ivTowFour.setOnClickListener(this);
+                twoHolder.tvTwoOne.setText(two.getTitle().get(0));
+                twoHolder.tvTwoTwo.setText(two.getTitle().get(1));
+                twoHolder.tvTwoThree.setText(two.getTitle().get(2));
+                twoHolder.tvTwoFour.setText(two.getTitle().get(3));
+                break;
 
         }
     }
@@ -115,24 +139,33 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ((MainActivity) context).startActivity(PaperInfoActivity.class, bundle);
     }
 
-    class BannerHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        String[] split = ((String) v.getTag()).split(",");
+        bundle.putInt("id", Integer.parseInt(split[0]));
+        bundle.putString("title", split[1]);
+        ((MainActivity) context).startActivity(ThemInfoActivity.class, bundle);
+    }
+
+    private static class BannerHolder extends RecyclerView.ViewHolder {
 
         private final Banner banner;
 
-        public BannerHolder(View itemView) {
+        BannerHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             banner = ((Banner) itemView.findViewById(R.id.banner_paper));
         }
     }
 
-    class ListHolder extends RecyclerView.ViewHolder {
+    private static class ListHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
         private final ImageView head;
         private final CardView cardView;
 
-        public ListHolder(View itemView) {
+        ListHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));
@@ -141,14 +174,35 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    class TypeHolder extends RecyclerView.ViewHolder {
+    private static class TypeHolder extends RecyclerView.ViewHolder {
 
         private final TextView type;
 
-        public TypeHolder(View itemView) {
+        TypeHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             type = ((TextView) itemView.findViewById(R.id.tv_paper_type));
+        }
+    }
+
+    private static class SelectHolder extends RecyclerView.ViewHolder {
+        ImageView ivTowOne;
+        ImageView ivTowTwo;
+        ImageView ivTowThree;
+        ImageView ivTowFour;
+        TextView tvTwoOne, tvTwoTwo, tvTwoThree, tvTwoFour;
+
+        SelectHolder(View view) {
+            super(view);
+            AutoUtils.autoSize(view);
+            ivTowOne = ((ImageView) view.findViewById(R.id.iv_tow_one));
+            ivTowTwo = ((ImageView) view.findViewById(R.id.iv_tow_two));
+            ivTowThree = ((ImageView) view.findViewById(R.id.iv_tow_three));
+            ivTowFour = ((ImageView) view.findViewById(R.id.iv_tow_four));
+            tvTwoOne = ((TextView) view.findViewById(R.id.tv_two_one));
+            tvTwoTwo = ((TextView) view.findViewById(R.id.tv_two_two));
+            tvTwoThree = ((TextView) view.findViewById(R.id.tv_two_three));
+            tvTwoFour = ((TextView) view.findViewById(R.id.tv_two_four));
         }
     }
 

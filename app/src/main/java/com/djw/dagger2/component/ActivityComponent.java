@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.djw.dagger2.http.ActivityScope;
 import com.djw.dagger2.module.ActivityModule;
+import com.djw.dagger2.ui.wx.activity.SearchActivity;
 import com.djw.dagger2.ui.zhihu.activity.PaperInfoActivity;
 import com.djw.dagger2.ui.zhihu.activity.SectionActivity;
 import com.djw.dagger2.ui.zhihu.activity.ThemInfoActivity;
@@ -25,4 +26,5 @@ public interface ActivityComponent {
 
     void inject(SectionActivity sectionActivity);
 
+    void inject(SearchActivity searchActivity);
 }
