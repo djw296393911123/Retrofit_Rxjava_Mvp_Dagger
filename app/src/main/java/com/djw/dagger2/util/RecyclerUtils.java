@@ -19,8 +19,8 @@ public class RecyclerUtils {
         return false;
     }
 
-    public static long getBeforeDate(int date) {
-        long l = System.currentTimeMillis() - date;
+    public static long getBeforeDate(int date, int index) {
+        long l = System.currentTimeMillis() - date * index;
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         return Integer.parseInt(format.format(new Date(l)));
     }

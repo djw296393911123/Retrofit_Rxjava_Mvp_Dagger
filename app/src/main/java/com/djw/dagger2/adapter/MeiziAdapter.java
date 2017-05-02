@@ -78,7 +78,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
         private final ImageView imageView;
         private final CardView cardView;
 
-        public MeiziHolder(View itemView) {
+        MeiziHolder(View itemView) {
             super(itemView);
             imageView = ((ImageView) itemView.findViewById(R.id.iv_meizi));
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));

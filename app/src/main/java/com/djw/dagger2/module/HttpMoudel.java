@@ -5,11 +5,9 @@ import com.djw.dagger2.http.DoubanUrl;
 import com.djw.dagger2.http.GankUrl;
 import com.djw.dagger2.http.WxUrl;
 import com.djw.dagger2.http.ZhihuUrl;
-import com.djw.dagger2.http.apis.DoubanApi;
 import com.djw.dagger2.http.apis.GankApi;
 import com.djw.dagger2.http.apis.WxApi;
 import com.djw.dagger2.http.apis.ZhihuApi;
-import com.djw.dagger2.util.SystemUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +17,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
-import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -52,13 +49,6 @@ public class HttpMoudel {
     @ZhihuUrl
     Retrofit provideZhihuRetrofit(Retrofit.Builder builder, OkHttpClient client) {
         return createRetrofit(builder, client, ZhihuApi.SERVICE);
-    }
-
-    @Singleton
-    @Provides
-    @DoubanUrl
-    Retrofit provideDoubanRetrofit(Retrofit.Builder builder, OkHttpClient client) {
-        return createRetrofit(builder, client, DoubanApi.SERVICE);
     }
 
     @Singleton
@@ -111,11 +101,6 @@ public class HttpMoudel {
         return retrofit.create(ZhihuApi.class);
     }
 
-    @Singleton
-    @Provides
-    DoubanApi provideDoubanService(@DoubanUrl Retrofit retrofit) {
-        return retrofit.create(DoubanApi.class);
-    }
 
     @Singleton
     @Provides

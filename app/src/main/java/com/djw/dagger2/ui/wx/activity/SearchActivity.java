@@ -2,7 +2,6 @@ package com.djw.dagger2.ui.wx.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,9 +18,10 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
-public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContracts.View, View.OnClickListener, XRecyclerView.LoadingListener {
+public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContracts.View, XRecyclerView.LoadingListener {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -42,8 +42,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     public void initView() {
-        tvSearch.setOnClickListener(this);
-        ivBack.setOnClickListener(this);
         xrvSearch.setLayoutManager(new LinearLayoutManager(this));
         xrvSearch.setLoadingListener(this);
         adapter = new WxAdapter(this);
@@ -73,19 +71,17 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         adapter.notifyListChange(wxData, isLoadMore);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.tv_search:
-                page = 1;
-                String search = etSearch.getText().toString().trim();
-                if (search.equals("")) Toast.makeText(context, "请输入关键字", Toast.LENGTH_SHORT).show();
-                else mPresenter.getSearchData(search, page, false, true);
-                break;
-        }
+    @OnClick(R.id.tv_search)
+    public void searchByKeywords() {
+        page = 1;
+        String search = etSearch.getText().toString().trim();
+        if (search.equals("")) Toast.makeText(context, "请输入关键字", Toast.LENGTH_SHORT).show();
+        else mPresenter.getSearchData(search, page, false, true);
+    }
+
+    @OnClick(R.id.iv_back)
+    public void finishActivity() {
+        finish();
     }
 
     @Override

@@ -26,7 +26,7 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
 
     private DaypaperAdapter adapter;
     private boolean isLoading = false;
-    private int index = 1;
+    private int index = 0;
     private boolean isSuccess = false;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -60,7 +60,7 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
                 int totalItemCount = recyclerView.getLayoutManager().getItemCount();
                 if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
                     if (!isLoading) {
-                        mPresenter.getBeforeData(String.valueOf(RecyclerUtils.getBeforeDate(1000 * 24 * 60 * 60 * index++)));
+                        mPresenter.getBeforeData(String.valueOf(RecyclerUtils.getBeforeDate(1000 * 24 * 60 * 60, index++)));
                         isLoading = true;
                     }
                 }
@@ -106,7 +106,7 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
 
     @Override
     public void showPaperData(List<PaperBaseData> daypaperData) {
-        index = 1;
+        index = 0;
         adapter.notifyListChange(daypaperData, false);
     }
 
@@ -118,7 +118,7 @@ public class DaypaperFragment extends BaseFragment<PaperPresenter> implements Pa
 
     @Override
     public void onRefresh() {
-        index = 1;
+        index = 0;
         mPresenter.getPaperData();
     }
 }

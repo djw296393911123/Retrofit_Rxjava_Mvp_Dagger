@@ -92,6 +92,7 @@ public class PaperInfoActivity extends BaseActivity<PaperInfoPresenter> implemen
         Glide.with(this).load(daypaperInfoData.getImage()).asBitmap().into(head);
         toolbar.setTitle(daypaperInfoData.getTitle());
         webView.loadData(CSS_STYLE + daypaperInfoData.getBody(), "text/html; charset=utf-8", "utf-8");
+//        webView.loadDataWithBaseURL(daypaperInfoData.getCss().get(0), daypaperInfoData.getBody(), "text/html; charset=utf-8", "utf-8", null);
     }
 
     @Override

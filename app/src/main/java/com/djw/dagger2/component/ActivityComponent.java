@@ -2,6 +2,7 @@ package com.djw.dagger2.component;
 
 import android.app.Activity;
 
+import com.djw.dagger2.WelcomeActivity;
 import com.djw.dagger2.http.ActivityScope;
 import com.djw.dagger2.module.ActivityModule;
 import com.djw.dagger2.ui.wx.activity.SearchActivity;
@@ -27,4 +28,6 @@ public interface ActivityComponent {
     void inject(SectionActivity sectionActivity);
 
     void inject(SearchActivity searchActivity);
+
+    void inject(WelcomeActivity welcomeActivity);
 }

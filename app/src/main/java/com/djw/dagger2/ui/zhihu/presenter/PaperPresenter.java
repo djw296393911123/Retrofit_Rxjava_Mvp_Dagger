@@ -91,7 +91,6 @@ public class PaperPresenter extends RxPresenter<PaperContracts.View> implements 
 
     @Override
     public void getBeforeData(String date) {
-        Log.i("date", date);
         Subscription subscribe = helper.getBeforePaperList(date)
                 .compose(RxUtil.<DaypaperBeforeData>rxSchedulerHelper())
                 .subscribe(new CommonSubscriber<DaypaperBeforeData>(mView) {

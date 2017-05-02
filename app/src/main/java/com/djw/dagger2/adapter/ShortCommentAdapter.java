@@ -12,7 +12,9 @@ import com.bumptech.glide.Glide;
 import com.djw.dagger2.R;
 import com.djw.dagger2.data.zhihu.DaypaperShortCommentData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**

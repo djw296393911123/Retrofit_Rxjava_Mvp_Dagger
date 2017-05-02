@@ -3,6 +3,7 @@ package com.djw.dagger2.ui.zhihu.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,22 +20,21 @@ import com.djw.dagger2.ui.zhihu.presenter.LongCommentPresenter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LongCommentFragment extends BaseFragment<LongCommentPresenter> implements LongCommentContracts.View {
+public class LongCommentFragment extends BaseFragment<LongCommentPresenter> implements LongCommentContracts.View, SwipeRefreshLayout.OnRefreshListener {
 
     private CommentAdapter adapter;
 
-    private boolean isSuccess = false;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void lazyLoad() {
-        if (!isVisible || !isSuccess)
-            return;
-        mPresenter.getLongComment(getArguments().getString("id"));
     }
 
     @Override
     protected void initView(View view) {
-        isSuccess = true;
+        swipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.srl_long));
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_long);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new CommentAdapter(getActivity());
@@ -59,7 +59,7 @@ public class LongCommentFragment extends BaseFragment<LongCommentPresenter> impl
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        lazyLoad();
+        mPresenter.getLongComment(getArguments().getString("id"));
     }
 
     @Override
@@ -74,16 +74,21 @@ public class LongCommentFragment extends BaseFragment<LongCommentPresenter> impl
 
     @Override
     public void showProgress() {
-        ((CommentActivity) getActivity()).showProgress();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void dismissProgress() {
-        ((CommentActivity) getActivity()).dismissProgress();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void showLongComment(DaypaperLongcommentData daypaperLongcommentData) {
         adapter.notifyListChange(daypaperLongcommentData.getComments());
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getLongComment(getArguments().getString("id"));
     }
 }

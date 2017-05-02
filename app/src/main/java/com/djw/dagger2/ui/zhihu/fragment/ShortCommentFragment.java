@@ -21,8 +21,6 @@ public class ShortCommentFragment extends BaseFragment<ShortCommentPresenter> im
 
     private ShortCommentAdapter adapter;
 
-    private boolean isSuccess = false;
-
     public static ShortCommentFragment newInstance(String id) {
 
         Bundle args = new Bundle();
@@ -34,14 +32,12 @@ public class ShortCommentFragment extends BaseFragment<ShortCommentPresenter> im
 
     @Override
     protected void lazyLoad() {
-        if (!isVisible || !isSuccess)
-            return;
-        mPresenter.getShortComment(getArguments().getString("id"));
+
+
     }
 
     @Override
     protected void initView(View view) {
-        isSuccess = true;
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_long);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ShortCommentAdapter(getActivity());
@@ -57,7 +53,7 @@ public class ShortCommentFragment extends BaseFragment<ShortCommentPresenter> im
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        lazyLoad();
+        mPresenter.getShortComment(getArguments().getString("id"));
     }
 
     @Override

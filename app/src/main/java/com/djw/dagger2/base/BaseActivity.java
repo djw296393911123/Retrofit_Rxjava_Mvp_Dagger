@@ -2,7 +2,6 @@ package com.djw.dagger2.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -20,6 +19,7 @@ import com.zhy.autolayout.AutoLayoutActivity;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by JasonDong on 2017/3/23.
@@ -31,11 +31,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AutoLayoutAc
     private ParallaxBackActivityHelper mHelper;
     protected Context context;
     private ProgressDialog progressDialog;
+    private Unbinder bind;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
+        bind = ButterKnife.bind(this);
         context = this;
         progressDialog = new ProgressDialog(this);
         DoubleBounce doubleBounce = new DoubleBounce();
@@ -121,7 +122,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AutoLayoutAc
     protected void onDestroy() {
         super.onDestroy();
         mHelper.onActivityDestroy();
+        bind.unbind();
         if (mPresenter != null) mPresenter.detachView();
+
     }
 
     public ParallaxBackLayout getBackLayout() {

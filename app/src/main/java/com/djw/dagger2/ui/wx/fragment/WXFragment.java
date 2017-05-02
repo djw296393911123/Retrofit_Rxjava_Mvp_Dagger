@@ -20,7 +20,6 @@ import com.djw.dagger2.data.wx.WxData;
 import com.djw.dagger2.ui.wx.activity.SearchActivity;
 import com.djw.dagger2.ui.wx.contracts.WxContracts;
 import com.djw.dagger2.ui.wx.presenter.WxPresenter;
-import com.djw.dagger2.util.SearchPopWindows;
 
 import java.util.List;
 
@@ -32,8 +31,6 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
     private WxAdapter adapter;
 
     private boolean isSuccess = false;
-    private SearchPopWindows searchPopWindows;
-    private Toolbar toolbar;
     private String keyword;
     private int page = 1;
     private boolean isLoading = false;
@@ -53,7 +50,7 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
         swipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.srl_wx));
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(this);
-        toolbar = (Toolbar) view.findViewById(R.id.tl_base);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.tl_base);
         toolbar.setTitle("");
         ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(getString(R.string.wx));
         view.findViewById(R.id.iv_search).setOnClickListener(new View.OnClickListener() {
@@ -153,7 +150,6 @@ public class WXFragment extends BaseFragment<WxPresenter> implements WxContracts
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         keyword = v.getText().toString().trim();
         mPresenter.getSearchData(keyword);
-        searchPopWindows.dismiss();
         return false;
     }
 

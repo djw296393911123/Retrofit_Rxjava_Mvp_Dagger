@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.djw.dagger2.MainActivity;
@@ -20,6 +22,7 @@ import com.djw.dagger2.data.zhihu.paper.SelectFourData;
 import com.djw.dagger2.data.zhihu.paper.TypeData;
 import com.djw.dagger2.ui.zhihu.activity.PaperInfoActivity;
 import com.djw.dagger2.ui.zhihu.activity.ThemInfoActivity;
+import com.djw.dagger2.util.MorePopWindows;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerClickListener;
@@ -30,7 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/3/24.
+ * Created by JasonDong
+ * <p>
+ * on 2017/3/24.
  */
 
 public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnBannerClickListener, View.OnClickListener {
@@ -58,7 +63,7 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case PaperBaseData.TYPE_TYPE:
                 return new TypeHolder(LayoutInflater.from(context).inflate(R.layout.item_paper_type, parent, false));
             case PaperBaseData.LIST_TYPE:
-                return new ListHolder(LayoutInflater.from(context).inflate(R.layout.item_paper_news, parent, false));
+                return new ListHolder(LayoutInflater.from(context).inflate(R.layout.item_home_news, parent, false));
             case PaperBaseData.FOUR_TYPE:
                 return new SelectHolder(LayoutInflater.from(context).inflate(R.layout.item_new_two, parent, false));
 
@@ -85,7 +90,7 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 ((TypeHolder) holder).type.setText(((TypeData) list.get(position)).getDate());
                 break;
             case PaperBaseData.LIST_TYPE:
-                ListHolder listHolder = (ListHolder) holder;
+                final ListHolder listHolder = (ListHolder) holder;
                 final ListData listData = (ListData) list.get(position);
                 listHolder.title.setText(listData.getTitle());
                 Glide.with(context).load(listData.getUrl()).asBitmap().into(listHolder.head);
@@ -95,6 +100,28 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         Bundle bundle = new Bundle();
                         bundle.putInt("id", listData.getId());
                         ((MainActivity) context).startActivity(PaperInfoActivity.class, bundle);
+                    }
+                });
+                listHolder.more.setTag(position);
+                listHolder.more.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        int[] location = new int[2];
+                        v.getLocationOnScreen(location);
+                        MorePopWindows popWindows = new MorePopWindows(context) {
+                            @Override
+                            public void onDeleteClick() {
+                                removeItem(((int) v.getTag()));
+                            }
+
+                            @Override
+                            public void onMoreClick() {
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("id", listData.getId());
+                                ((MainActivity) context).startActivity(PaperInfoActivity.class, bundle);
+                            }
+                        };
+                        popWindows.showAtLocation(v, Gravity.NO_GRAVITY, location[0] - 200, location[1]);
                     }
                 });
                 break;
@@ -119,6 +146,14 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 twoHolder.tvTwoFour.setText(two.getTitle().get(3));
                 break;
 
+        }
+    }
+
+    private void removeItem(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+        if (position != list.size()) {
+            notifyItemRangeChanged(position, list.size() - position);
         }
     }
 
@@ -164,6 +199,7 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final TextView title;
         private final ImageView head;
         private final CardView cardView;
+        private final ImageView more;
 
         ListHolder(View itemView) {
             super(itemView);
@@ -171,6 +207,7 @@ public class DaypaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));
             title = ((TextView) itemView.findViewById(R.id.tv_paper_title));
             head = ((ImageView) itemView.findViewById(R.id.iv_paper_img));
+            more = ((ImageView) itemView.findViewById(R.id.iv_more));
         }
     }
 

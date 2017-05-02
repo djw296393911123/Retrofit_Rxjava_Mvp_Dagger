@@ -12,7 +12,9 @@ import com.bumptech.glide.Glide;
 import com.djw.dagger2.R;
 import com.djw.dagger2.data.zhihu.DaypaperLongcommentData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,7 +47,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
     public void onBindViewHolder(CommentHolder holder, int position) {
         holder.comment.setText(list.get(position).getContent());
         holder.name.setText(list.get(position).getAuthor());
-        Glide.with(context).load(list.get(position).getAvatar()).asBitmap().into(holder.head);
+        Glide.with(context).load(list.get(position).getAvatar()).placeholder(R.mipmap.img_default_meizi).into(holder.head);
     }
 
     @Override

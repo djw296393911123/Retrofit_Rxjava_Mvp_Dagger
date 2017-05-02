@@ -2,7 +2,6 @@ package com.djw.dagger2.http;
 
 import com.djw.dagger2.data.GankHttpResponse;
 import com.djw.dagger2.data.WXHttpResponse;
-import com.djw.dagger2.data.douban.DoubanListItem;
 import com.djw.dagger2.data.gank.GankListItemData;
 import com.djw.dagger2.data.wx.WxData;
 import com.djw.dagger2.data.zhihu.DaypaperBeforeData;
@@ -16,7 +15,7 @@ import com.djw.dagger2.data.zhihu.DaypaperSectionInfoData;
 import com.djw.dagger2.data.zhihu.DaypaperShortCommentData;
 import com.djw.dagger2.data.zhihu.DaypaperThemData;
 import com.djw.dagger2.data.zhihu.DaypaperThemInfoData;
-import com.djw.dagger2.http.apis.DoubanApi;
+import com.djw.dagger2.data.zhihu.WelcomeData;
 import com.djw.dagger2.http.apis.GankApi;
 import com.djw.dagger2.http.apis.WxApi;
 import com.djw.dagger2.http.apis.ZhihuApi;
@@ -37,13 +36,10 @@ public class RetrofitHelper {
 
     private WxApi wxApi;
 
-    private DoubanApi doubanApi;
-
-    public RetrofitHelper(ZhihuApi zhihuApi, GankApi gankApi, WxApi wxApi, DoubanApi doubanApi) {
+    public RetrofitHelper(ZhihuApi zhihuApi, GankApi gankApi, WxApi wxApi) {
         this.zhihuApi = zhihuApi;
         this.gankApi = gankApi;
         this.wxApi = wxApi;
-        this.doubanApi = doubanApi;
     }
 
     public Observable<DaypaperData> getDaypaperList() {
@@ -118,8 +114,8 @@ public class RetrofitHelper {
         return wxApi.getSearchWx("1f4051e5e61866d7ead573e2a39d857c", num, page, keyWords);
     }
 
-    public Observable<DoubanListItem> getBookInfo(String id) {
-        return doubanApi.getBookInfo(id);
+    public Observable<WelcomeData> getWelcome() {
+        return zhihuApi.getWelcome();
     }
 
 }
